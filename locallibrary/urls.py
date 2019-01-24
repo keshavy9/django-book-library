@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.views.generic import RedirectView
+from accounts import views as account_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('catalog/',include('catalog.urls')),
     path('accounts/',include('django.contrib.auth.urls')),
     path('', RedirectView.as_view(url='/account/login/', permanent=True)),
+    path('signup/',accounts_views.signup,name='signup')
 ]
