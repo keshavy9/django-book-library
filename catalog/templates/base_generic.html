@@ -9,6 +9,15 @@
       <link rel="stylesheet" href="{% static 'css/style.css' %}">
     </head>
     <body>
+    <div>
+        <nav class="navbar navbar-light bg-light justify-content-between">
+  <a class="navbar-brand">LocalLibrary</a>
+  <form class="form-inline" method="get">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search for books" name="bookname" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+        </nav>
+    </div>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-2">
@@ -16,10 +25,14 @@
                     <ul class="sidebar-nav">
                         <li><a href="{% url 'index'%}">Home</a></li>
                         <li><a href="{% url 'books' %}">All Books</a></li>
-                        <li><a href="">All Authors</a></li>
+                        <li><a href="{% url 'authors' %}">All Authors</a></li>
+                        <br>
+                        <br>
+                        <br>
 
                         {% if user.is_authenticated %}
                         <li>User: {{ user.get_username }}</li>
+                        <li><a href="{% url 'my-borrowed' %}">My Borrowed</a></li>
                         <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
                         {% else %}
                          <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>

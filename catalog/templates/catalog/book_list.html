@@ -2,6 +2,7 @@
 
 {% block content %}
     <h1>Book List</h1>
+    <button type="button" class="btn btn-warning"><a href = "{%url 'book_create' %}">Create</a></button>
     {% if book_list %}
         <ul>
             {% for book in book_list%}
