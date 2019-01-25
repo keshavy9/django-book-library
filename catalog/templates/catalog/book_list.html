@@ -2,12 +2,14 @@
 
 {% block content %}
     <h1>Book List</h1>
-    <button type="button" class="btn btn-warning"><a href = "{%url 'book_create' %}">Create</a></button>
+    <button type="button" class="btn btn-default"><a href = "{%url 'book_create' %}">Create</a></button>
     {% if book_list %}
         <ul>
             {% for book in book_list%}
                 <li>
                     <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})
+                    <button type="button" class="btn btn-default"><a href="{% url 'book_update' book.pk%}">Update</a></button>
+                    <button type="button" class="btn btn-danger"><a href="{% url 'book_delete' book.pk%}">Delete</a></button>
                 </li>
             {% endfor%}    
         </ul>

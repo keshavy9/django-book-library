@@ -12,8 +12,25 @@
         <li><strong>Copies </strong>{{ num_instances }}</li>
         <li><strong>Copies Available </strong>{{ num_instances_available}}</li>
         <li><strong>Authors </strong>{{ num_authors }}</li>
-        <li><strong>Genre </strong>{{ num_genre }}</li>
         <li><strong>Contains 'Harry' </strong>{{ book_contains_x }}</li>
 
+
     </ul>
+{% if query %}
+    <h5>
+        You searched for {{ query }}
+    </h5>
+    {% if result%}
+    <ul>
+        {% for r in result %}
+            <li>{{ r.title}}</li>
+
+        {% endfor %}
+    </ul>
+    {%else%}
+    <h7>No book named {{query}}</h7>
+    {% endif %}
+{% else%}
+    <h5>Enter something in the searchbox</h5>
+{% endif %}
 {% endblock%}
