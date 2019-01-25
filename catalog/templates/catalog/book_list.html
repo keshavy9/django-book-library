@@ -13,6 +13,23 @@
                 </li>
             {% endfor%}    
         </ul>
+	<table class="table">
+	<thead class="thead-dark">
+		<th scope ="col">Book</th>
+		<th scope ="col">Actions</th>
+	</thead>
+	<tbody>
+		{% for book in book_list%}
+		<tr>
+			<td><a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})</td>
+			<td><button type="button" class="btn btn-default"><a href="{% url 'book_update' book.pk%}">Update</a></button>
+                    <button type="button" class="btn btn-danger"><a href="{% url 'book_delete' book.pk%}">Delete</a></button></td>
+		</tr>
+
+		{% endfor%} 
+	
+	</tbody>
+	</table>
     {% else %}
         <p>There are no books in the library</p>
     {% endif%}

@@ -18,6 +18,25 @@
   {% endfor %}
 
  </ul>
+<table class="table">
+	<thead class="thead-dark">
+		<th scope ="col">Author</th>
+		<th scope ="col">Actions</th>
+	</thead>
+	<tbody>
+		{% for author in author_list %}
+		<tr>
+			<td><a href="{{ author.get_absolute_url }}">
+      {{ author }} ({{author.date_of_birth}} - {% if author.date_of_death %}{{author.date_of_death}}{% endif %})
+      </a></td>
+			<td><button type="button" class="btn btn-default"><a href="{% url 'author_update' author.pk%}">Update</a></button>
+      <button type="button" class="btn btn-danger"><a href="{% url 'author_delete' author.pk%}">Delete</a></button></td>
+		</tr>
+
+		{% endfor%} 
+	
+	</tbody>
+	</table>
 {% else %}
   <p>There are no authors available.</p>
 {% endif %}
