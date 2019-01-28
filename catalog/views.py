@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse
 
+
 class BookCreate(CreateView):
     model = Book
     fields = '__all__'

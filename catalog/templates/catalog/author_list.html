@@ -4,21 +4,12 @@
 
 <h1>Author List</h1>
 
-{% if author_list %}
-  <ul>
 <button type="button" class="btn btn-default"><a href = "{%url 'author_create' %}">Create</a></button>
-  {% for author in author_list %}
-    <li>
-      <a href="{{ author.get_absolute_url }}">
-      {{ author }} ({{author.date_of_birth}} - {% if author.date_of_death %}{{author.date_of_death}}{% endif %})
-      </a>
-      <button type="button" class="btn btn-default"><a href="{% url 'author_update' author.pk%}">Update</a></button>
-      <button type="button" class="btn btn-danger"><a href="{% url 'author_delete' author.pk%}">Delete</a></button>
-    </li>
-  {% endfor %}
+<br>
+<br>
+{% if author_list %}
 
- </ul>
-<table class="table">
+<table class="table table-striped table-bordered">
 	<thead class="thead-dark">
 		<th scope ="col">Author</th>
 		<th scope ="col">Actions</th>

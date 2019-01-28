@@ -23,7 +23,7 @@
     {% if result%}
     <ul>
         {% for r in result %}
-            <li>{{ r.title}}</li>
+            <li><a href="{% url 'book-detail' r.pk%}">{{ r.title}}</a> </li>
 
         {% endfor %}
     </ul>

@@ -3,9 +3,45 @@
 {% block content %}
   <form action="" method="post">
     {% csrf_token %}
-    <table>
-    {{ form.as_table }}
-    </table>
+
+    <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="row">Add a new Book</th>
+
+    </tr>
+    </thead>
+   <tbody>
+
+    <tr>
+      <td>{{form.title.label_tag}}</td>
+      <td>{{form.title}}</td>
+    </tr>
+   <tr>
+      <td>{{ form.author.label_tag}}</td>
+      <td>{{form.author}}<span><a href="{%url 'author_create'%}">Create a new author</a></span></td>
+   </tr>
+   <tr>
+      <td>{{form.summary.label_tag}}</td>
+      <td>{{form.summary}}</td>
+
+    </tr>
+   <tr>
+      <td>{{form.isbn.label_tag}}</td>
+      <td>{{form.isbn}}</td>
+     <td>{{form.isbn.help_text|safe}}</td>
+     <td>{{form.errors}}</td>
+    </tr>
+   <tr>
+      <td>{{form.genre.label_tag}}</td>
+      <td>{{form.genre}}</td>
+    </tr>
+
+
+
+  </tbody>
+</table>
+
     <input type="submit" value="Submit">
   </form>
 {% endblock %}
