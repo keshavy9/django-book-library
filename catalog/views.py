@@ -41,6 +41,10 @@ class AuthorDelete(DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
 
+class GenreCreate(CreateView):
+	model = Genre
+	fields = '__all__'
+
 
 class BookListView(generic.ListView):
     model = Book
@@ -55,8 +59,6 @@ class AuthorListView(generic.ListView):
 class AuthorDetailView(generic.DetailView):
 
     model = Author
-
-
 
 
 
@@ -127,8 +129,6 @@ def index(request):
     # the all() is implied by default
     num_authors = Author.objects.count()
 
-    # challenges
-
     #num_genres = Genre.objects.all().count()
     book_contains_x = Book.objects.filter(title__icontains='harry').count()
 
@@ -140,7 +140,6 @@ def index(request):
         'num_instances': num_instances,
         'num_instances_available': num_instances_available,
         'num_authors': num_authors,
-        #'num_genres': num_genres,
         'book_contains_x' : book_contains_x,
         'query' : query,
         'result': result,
