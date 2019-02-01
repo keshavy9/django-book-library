@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from django.views import generic
 from django.http import HttpResponseRedirect
 import datetime
@@ -12,10 +12,43 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse
 
 
-class BookCreate(CreateView):
+def index(request):
+
+
+    # Generate counts of main objects
+    num_books = Book.objects.all().count()
+    num_instances = BookInstance.objects.all().count()
+
+    num_instances_available = BookInstance.objects.filter(status__exact='a').count()
+
+    # the all() is implied by default
+    num_authors = Author.objects.count()
+
+    #num_genres = Genre.objects.all().count()
+    book_contains_x = Book.objects.filter(title__icontains='harry').count()
+
+    query = request.GET.get('bookname',False)
+    result = Book.objects.filter(title__icontains=query)
+
+    context = {
+        'num_books': num_books,
+        'num_instances': num_instances,
+        'num_instances_available': num_instances_available,
+        'num_authors': num_authors,
+        'book_contains_x' : book_contains_x,
+        'query' : query,
+        'result': result,
+
+    }
+
+    return render(request, 'index.html', context=context)
+
+
+
+class BookCreate(LoginRequiredMixin, CreateView):
     model = Book
     fields = '__all__'
-
+    
 
 class BookDelete(DeleteView):
     model = Book
@@ -48,7 +81,8 @@ class GenreCreate(CreateView):
 
 class BookListView(generic.ListView):
     model = Book
-
+    
+        
 
 class BookDetailView(generic.DetailView):
     model = Book
@@ -70,10 +104,6 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
-
-
-
-
 
 class LoanedBooksAllListView(PermissionRequiredMixin, generic.ListView):
     #Generic class based view listing all books on loan. Only visible to users with can_mark_returned permission.
@@ -114,39 +144,6 @@ def renew_book_librarian(request, pk):
         'book_instance': book_instance,
     }
     return render(request, 'catalog/book_renew_librarian.html', context)
-
-
-
-def index(request):
-
-
-    # Generate counts of main objects
-    num_books = Book.objects.all().count()
-    num_instances = BookInstance.objects.all().count()
-
-    num_instances_available = BookInstance.objects.filter(status__exact='a').count()
-
-    # the all() is implied by default
-    num_authors = Author.objects.count()
-
-    #num_genres = Genre.objects.all().count()
-    book_contains_x = Book.objects.filter(title__icontains='harry').count()
-
-    query = request.GET.get('bookname',False)
-    result = Book.objects.filter(title__icontains=query)
-
-    context = {
-        'num_books': num_books,
-        'num_instances': num_instances,
-        'num_instances_available': num_instances_available,
-        'num_authors': num_authors,
-        'book_contains_x' : book_contains_x,
-        'query' : query,
-        'result': result,
-
-    }
-
-    return render(request, 'index.html', context=context)
 
 
 
