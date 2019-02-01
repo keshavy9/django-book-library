@@ -44,45 +44,8 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 
-
-class BookCreate(LoginRequiredMixin, CreateView):
-    model = Book
-    fields = '__all__'
-    
-
-class BookDelete(DeleteView):
-    model = Book
-    success_url = reverse_lazy('books')
-
-
-class BookUpdate(UpdateView):
-    model = Book
-    fields = ['title','author','summary','isbn','genre']
-
-
-class AuthorCreate(CreateView):
-    model = Author
-    fields = '__all__'
-    initial = {'date_of_death': '05/01/2018'}
-
-
-class AuthorUpdate(UpdateView):
-    model = Author
-    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
-
-class AuthorDelete(DeleteView):
-    model = Author
-    success_url = reverse_lazy('authors')
-
-class GenreCreate(CreateView):
-	model = Genre
-	fields = '__all__'
-
-
 class BookListView(generic.ListView):
-    model = Book
-    
-        
+    model = Book        
 
 class BookDetailView(generic.DetailView):
     model = Book
@@ -91,9 +54,40 @@ class AuthorListView(generic.ListView):
     model = Author
 
 class AuthorDetailView(generic.DetailView):
-
     model = Author
 
+class BookCreate(LoginRequiredMixin, CreateView):
+    model = Book
+    fields = '__all__'
+    
+
+class BookDelete(LoginRequiredMixin,DeleteView):
+    model = Book
+    success_url = reverse_lazy('books')
+
+
+class BookUpdate(LoginRequiredMixin,UpdateView):
+    model = Book
+    fields = ['title','author','summary','isbn','genre']
+
+
+class AuthorCreate(LoginRequiredMixin,CreateView):
+    model = Author
+    fields = '__all__'
+    initial = {'date_of_death': '05/01/2018'}
+
+
+class AuthorUpdate(LoginRequiredMixin,UpdateView):
+    model = Author
+    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+
+class AuthorDelete(LoginRequiredMixin,DeleteView):
+    model = Author
+    success_url = reverse_lazy('authors')
+
+class GenreCreate(LoginRequiredMixin,CreateView):
+	model = Genre
+	fields = '__all__'
 
 
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
@@ -107,6 +101,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 
 class LoanedBooksAllListView(PermissionRequiredMixin, generic.ListView):
     #Generic class based view listing all books on loan. Only visible to users with can_mark_returned permission.
+    
     model = BookInstance
     permission_required = 'catalog.can_mark_returned'
     template_name = 'catalog/bookinstance_list_borrowed_all.html'

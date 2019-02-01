@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
-
+<div class="container">
 {% block content %}
-
+<div class="container">
 <h1>Author: {{ author }} </h1>
 <p>{{author.date_of_birth}} - {% if author.date_of_death %}{{author.date_of_death}}{% endif %}</p>
 
@@ -16,4 +16,6 @@
 </dl>
 
 </div>
+</div>
 {% endblock %}
+</div>

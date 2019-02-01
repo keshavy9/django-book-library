@@ -8,33 +8,43 @@
 
 {% if next %}
   {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
+    <h3>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</h3>
   {% else %}
-    <p>Please login to see this page.</p>
+    <center><h3>Please login to see this page.</h3></center>
   {% endif %}
 {% endif %}
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-<table>
 
-<tr>
-  <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
-</tr>
+<div class="container">
+ <h1 class="text-center logo my-4">
+      <a href="{% url 'index' %}">Local Library</a>
+    </h1>
 
-<tr>
-  <td>{{ form.password.label_tag }}</td>
-  <td>{{ form.password }}</td>
-</tr>
-</table>
+<div class="row justify-content-center">
+    <div class="col-lg-4 col-md-6 col-sm-8">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Log in</h3>
+          <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {% include 'includes/form.html' %}
 
-<input type="submit" value="login" />
-<input type="hidden" name="next" value="{{ next }}" />
-</form>
-<p>New to LocalLibrary?<a href="{% url 'signup' %}">Signup</a></p>
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+            <button type="submit" class="btn btn-primary btn-block" value="login">Log in</button>
+		<input type="hidden" name="next" value="{{ next }}" />
+          </form>
+        </div>
+        <div class="card-footer text-muted text-center">
+          New to Local Library? <a href="{% url 'signup' %}">Sign up</a>
+        </div>
+      </div>
+      <div class="text-center py-2">
+        <small>
+          <a href="{% url 'password_reset' %}" class="text-muted">Forgot your password?</a>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

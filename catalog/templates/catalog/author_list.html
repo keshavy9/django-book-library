@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-
+<div class="container">
 <h1>Author List</h1>
 
 <button type="button" class="btn btn-default"><a href = "{%url 'author_create' %}">Create</a></button>
@@ -32,6 +32,6 @@
   <p>There are no authors available.</p>
 {% endif %}
         
-        
+</div> 
         
 {% endblock %}
