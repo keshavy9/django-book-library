@@ -14,7 +14,7 @@ class Genre(models.Model):
     def __str__(self):
 
         return self.name
-
+       
 
 class Book(models.Model):
 
@@ -32,7 +32,15 @@ class Book(models.Model):
 
         return reverse('book-detail', args=[str(self.id)])
 
-
+class Review(models.Model):
+    review = models.TextField(max_length = 1000, help_text='Enter your review here')
+    book = models.ForeignKey(Book, on_delete=models.SET_NULL,null=True, related_name = 'reviews')
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True,related_name = 'reviews')
+    created_at = models.DateTimeField(auto_now_add = True)
+    
+    def __str__(self):
+        return self.review 
+    
 class BookInstance(models.Model):
 
     id = models.UUIDField(primary_key=True, default= uuid.uuid4, help_text='Unique id of this whole book across the library' )

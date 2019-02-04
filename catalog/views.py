@@ -2,12 +2,12 @@ from django.shortcuts import render, get_object_or_404,redirect
 from django.views import generic
 from django.http import HttpResponseRedirect
 import datetime
-from catalog.models import Book, Author, BookInstance, Genre
-from catalog.forms import RenewBookForm
+from catalog.models import Book, Author, BookInstance, Genre, Review
+from catalog.forms import RenewBookForm,ReviewForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import permission_required,login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse
 
@@ -88,6 +88,25 @@ class AuthorDelete(LoginRequiredMixin,DeleteView):
 class GenreCreate(LoginRequiredMixin,CreateView):
 	model = Genre
 	fields = '__all__'
+
+@login_required    
+def add_review(request,pk):
+    book = get_object_or_404(Book, pk = pk)
+    
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.book = book
+            review.created_by = request.user
+            review.save()
+            return redirect('book-detail', pk = pk)
+        pass
+    else:
+        form = ReviewForm()
+        pass
+    return render(request, 'review_form.html', {'book':book,'form':form})
 
 
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):

@@ -2,7 +2,8 @@
 <div class="container">
 {% block content %}
     <h1>Book List</h1>
-    <button type="button" class="btn btn-default"><a href = "{%url 'book_create' %}">Create</a></button>
+   
+	<a href="{%url 'book_create' %}" class="btn btn-primary btn-sm" role="button">Create</a>
 	<br>
 	<br>
     {% if book_list %}
@@ -17,8 +18,11 @@
 		{% for book in book_list%}
 		<tr>
 			<td><a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})</td>
-			<td><button type="button" class="btn btn-default"><a href="{% url 'book_update' book.pk%}">Update</a></button>
-                    <button type="button" class="btn btn-danger"><a href="{% url 'book_delete' book.pk%}">Delete</a></button></td>
+			<td>
+				<a href="{%url 'book_update' book.pk %}" class="btn btn-primary btn-sm" role="button">Update</a>
+				<a href="{%url 'book_review' book.pk %}" class="btn btn-primary btn-sm" role="button">Add review</a>
+				<a href="{%url 'book_delete' book.pk %}" class="btn btn-danger btn-sm" role="button">Delete</a>
+			</td>
 			
 		</tr>
 

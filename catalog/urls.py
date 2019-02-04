@@ -24,6 +24,6 @@ urlpatterns = [
     path('genre/create/', views.GenreCreate.as_view(), name='genre_create'),
 
     path('book/<uuid:pk>/renew/', views.renew_book_librarian, name='renew-book-librarian'),
-
+    path('book/<int:pk>/reviews/', views.add_review, name='book_review')
 
 ]

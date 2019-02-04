@@ -1,6 +1,6 @@
 from django import forms
 import datetime
-from .models import Book
+from .models import Book,Review
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
@@ -24,3 +24,16 @@ class RenewBookForm(forms.Form):
 
         # return the cleaned data
         return data
+
+    
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['review',]
+    
+    
+    
+        
+        
+    
+  

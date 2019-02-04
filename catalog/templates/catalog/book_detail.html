@@ -22,5 +22,21 @@
       <p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>
     {% endfor %}
   </div>
+
+<div class="container">
+<h4>Reviews</h4>
+{% if book.reviews.all%}
+{% for r in book.reviews.all %}
+<hr>
+<p><strong>User: </strong>{{r.created_by}}</p>
+<p><strong>Review: </strong>{{r.review}}</p>
+<p><strong>Added at: </strong>{{r.created_at}}</p>
+
+
+{% endfor%}
+{% else %}
+<p>No reviews added yet :(</p>
+{% endif%}
+</div>
 </div>
 {% endblock %}
