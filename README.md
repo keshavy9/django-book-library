@@ -16,4 +16,5 @@ Steps to run:-
   
   ->pip install django
   ->pip install django-widget-tweaks
+  
 4. To run -> django manage.py runserver 
